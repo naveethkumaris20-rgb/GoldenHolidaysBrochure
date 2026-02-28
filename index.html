@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Holidays — Launch Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96E;
+    --gold-pale: #F5E9C8;
+    --gold-dark: #8B6914;
+    --ivory: #FAF7F0;
+    --cream: #F2ECD8;
+    --ink: #1A1714;
+    --ink-light: #3D3830;
+    --muted: #8A8070;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--ivory);
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px;
+    overflow: hidden;
+  }
+
+  .masthead-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #1A1714 0%, #0F0D0B 50%, #1A1714 100%);
+  }
+
+  .masthead-ornament {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    opacity: 0.4;
+  }
+
+  .masthead-ornament-bottom {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 120px;
+    background: linear-gradient(to top, transparent, var(--gold));
+    opacity: 0.4;
+  }
+
+  .eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .masthead h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.5s;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+
+  .masthead-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 40px auto;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s;
+  }
+
+  .masthead-sub {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 200;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    max-width: 500px;
+    line-height: 2;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.1s;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.8s;
+  }
+
+  .scroll-cue span {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* ── PACKAGE SECTIONS ── */
+  .package {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .package:nth-child(even) { direction: rtl; }
+  .package:nth-child(even) > * { direction: ltr; }
+
+  /* Visual panel */
+  .pkg-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 600px;
+  }
+
+  .pkg-visual-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Package-specific visuals */
+  .pkg-1 .pkg-visual-bg {
+    background:
+      radial-gradient(ellipse 70% 70% at 30% 60%, rgba(139,105,20,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 20%, rgba(201,168,76,0.15) 0%, transparent 50%),
+      linear-gradient(135deg, #0D0B08 0%, #1C1508 40%, #0D0B08 100%);
+  }
+
+  .pkg-2 .pkg-visual-bg {
+    background:
+      radial-gradient(ellipse 60% 80% at 60% 40%, rgba(180,120,20,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201,168,76,0.1) 0%, transparent 50%),
+      linear-gradient(160deg, #0B0A07 0%, #181208 50%, #0B0A07 100%);
+  }
+
+  .pkg-3 .pkg-visual-bg {
+    background:
+      radial-gradient(ellipse 80% 60% at 40% 30%, rgba(120,90,15,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 80% 80%, rgba(201,168,76,0.12) 0%, transparent 50%),
+      linear-gradient(145deg, #0A0908 0%, #141008 50%, #0A0908 100%);
+  }
+
+  /* Decorative SVG elements per card */
+  .pkg-icon {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .pkg-icon svg {
+    width: 120px;
+    height: 120px;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.4));
+  }
+
+  .pkg-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 180px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.07);
+    position: absolute;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .pkg-tag {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.45em;
+    color: var(--gold);
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 8px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Content panel */
+  .pkg-content {
+    background: var(--ink);
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-left: 1px solid rgba(201,168,76,0.08);
+  }
+
+  .package:nth-child(even) .pkg-content {
+    border-left: none;
+    border-right: 1px solid rgba(201,168,76,0.08);
+  }
+
+  .pkg-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+  }
+
+  .pkg-eyebrow {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .pkg-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ivory);
+    margin-bottom: 8px;
+  }
+
+  .pkg-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .pkg-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .pkg-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 40px;
+    opacity: 0.6;
+  }
+
+  .pkg-meta {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--gold-light);
+  }
+
+  .pkg-description {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(250,247,240,0.75);
+    margin-bottom: 40px;
+  }
+
+  .pkg-flow {
+    margin-bottom: 44px;
+  }
+
+  .flow-label {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .flow-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .flow-items::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    opacity: 0.25;
+  }
+
+  .flow-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: rgba(250,247,240,0.65);
+    line-height: 1.5;
+  }
+
+  .flow-dot {
+    width: 11px;
+    height: 11px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    background: rgba(201,168,76,0.15);
+    position: relative;
+    z-index: 1;
+  }
+
+  .pkg-positioning {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+
+  .positioning-label {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .positioning-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ivory);
+    line-height: 1.7;
+  }
+
+  .pkg-attributes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+
+  .attr-pill {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 6px 16px;
+    background: rgba(201,168,76,0.04);
+    transition: all 0.3s ease;
+  }
+
+  .attr-pill:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  .routes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .route-card {
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 20px;
+    background: rgba(201,168,76,0.03);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .route-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .route-card:hover { background: rgba(201,168,76,0.07); }
+  .route-card:hover::before { opacity: 0.5; }
+
+  .route-card.hero {
+    grid-column: 1 / -1;
+    border-color: rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.06);
+  }
+
+  .route-card.hero::before { opacity: 0.4; }
+
+  .route-badge {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .route-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 6px;
+  }
+
+  .route-desc {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+    margin: 0 80px;
+  }
+
+  /* ── CLOSING SECTION ── */
+  .closing {
+    padding: 120px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .closing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+
+  .closing-ornament {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.6em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .closing h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ivory);
+    line-height: 1.2;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .closing-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    max-width: 640px;
+    margin: 0 auto 60px;
+    position: relative;
+  }
+
+  .closing-cta {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    padding: 18px 56px;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .closing-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .closing-cta:hover { color: var(--ink); }
+  .closing-cta:hover::before { transform: scaleX(1); }
+  .closing-cta span { position: relative; z-index: 1; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .package { grid-template-columns: 1fr; }
+    .package:nth-child(even) { direction: ltr; }
+    .pkg-visual { min-height: 380px; }
+    .pkg-content { padding: 60px 36px; }
+    .pkg-content::before { display: none; }
+    .package:nth-child(even) .pkg-content { border: none; }
+    .package .pkg-content { border: none; }
+    .routes-grid { grid-template-columns: 1fr; }
+    .route-card.hero { grid-column: 1; }
+    .closing { padding: 80px 36px; }
+    .section-divider { margin: 0 36px; }
+    .masthead { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<section class="masthead">
+  <div class="masthead-bg"></div>
+  <div class="masthead-ornament"></div>
+  <div class="masthead-ornament-bottom"></div>
+
+  <p class="eyebrow">Bangalore</p>
+
+  <h1>
+    Golden<br>
+    <em>Holidays</em>
+  </h1>
+
+  <div class="masthead-divider"></div>
+
+  <p class="masthead-sub">Launch Portfolio &nbsp;·&nbsp; Three Signature Experiences &nbsp;·&nbsp; Curated for Those Who Travel Differently</p>
+
+  <div class="scroll-cue">
+    <span>Discover</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PACKAGE 1 — EQUESTRIAN ESCAPE             -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-divider"></div>
+
+<section class="package pkg-1">
+  <div class="pkg-visual">
+    <div class="pkg-visual-bg"></div>
+    <div class="pkg-number">01</div>
+    <div class="pkg-icon">
+      <div class="pkg-tag">Couples Signature Experience</div>
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stylised horse silhouette -->
+        <circle cx="60" cy="60" r="58" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="60" cy="60" r="50" stroke="#C9A84C" stroke-width="0.3" opacity="0.2"/>
+        <!-- Horse body -->
+        <path d="M30 78 Q35 60 50 55 Q58 52 65 48 Q72 44 78 38 Q82 34 85 32" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Horse head -->
+        <path d="M85 32 Q90 28 92 24 Q93 20 91 18 Q88 16 85 18 Q82 20 80 24 Q78 28 78 32" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Mane -->
+        <path d="M78 38 Q76 35 80 32 Q83 30 85 32" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.6"/>
+        <!-- Legs -->
+        <path d="M50 55 Q48 65 45 78 Q44 82 44 86" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M58 54 Q57 66 55 80 Q54 84 54 88" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M42 78 L30 78" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Tail -->
+        <path d="M30 78 Q20 72 18 65 Q16 58 22 55" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Ground line -->
+        <line x1="20" y1="92" x2="100" y2="92" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <!-- Stars -->
+        <circle cx="35" cy="30" r="1" fill="#C9A84C" opacity="0.5"/>
+        <circle cx="95" cy="55" r="0.8" fill="#C9A84C" opacity="0.4"/>
+        <circle cx="25" cy="50" r="0.6" fill="#C9A84C" opacity="0.3"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="pkg-content">
+    <div class="reveal">
+      <p class="pkg-eyebrow">Package 01 &nbsp;·&nbsp; Half-Day Experience</p>
+      <h2 class="pkg-title">The Countryside<br><em>Equestrian Escape</em></h2>
+      <p class="pkg-subtitle">A private countryside experience crafted for two</p>
+      <div class="pkg-rule"></div>
+    </div>
+
+    <div class="pkg-meta reveal reveal-delay-1">
+      <div class="meta-item">
+        <span class="meta-label">Vehicle</span>
+        <span class="meta-value">Mercedes-Benz</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Duration</span>
+        <span class="meta-value">6–7 Hours</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Guests</span>
+        <span class="meta-value">2–3 Guests</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Ideal For</span>
+        <span class="meta-value">Couples · Proposals</span>
+      </div>
+    </div>
+
+    <p class="pkg-description reveal reveal-delay-2">
+      The countryside north of Bangalore holds a quieter world — one that asks nothing of you except presence. A chauffeur-driven morning through Devanahalli's open farmlands leads to a private forest estate where horses wait, an instructor stands ready, and the only agenda is the one you choose to have.
+    </p>
+
+    <div class="pkg-flow reveal reveal-delay-2">
+      <p class="flow-label">The Experience Flow</p>
+      <div class="flow-items">
+        <div class="flow-item"><div class="flow-dot"></div><span>Chauffeur-driven Mercedes pickup from residence</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Scenic drive into Devanahalli countryside</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Private guided horse-riding session — instructor-led, calm, unhurried</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Beginner-friendly with full safety orientation</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Premium curated brunch at an upscale countryside venue</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Relaxed, unhurried return to residence</span></div>
+      </div>
+    </div>
+
+    <div class="pkg-positioning reveal reveal-delay-3">
+      <p class="positioning-label">Positioning Statement</p>
+      <p class="positioning-text">"Not a date package. A private countryside experience — crafted for two, remembered for years."</p>
+    </div>
+
+    <div class="pkg-attributes reveal reveal-delay-4">
+      <span class="attr-pill">Slow</span>
+      <span class="attr-pill">Elegant</span>
+      <span class="attr-pill">Private</span>
+      <span class="attr-pill">Intentional</span>
+      <span class="attr-pill">Giftable</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PACKAGE 2 — DIVINE SOUTH PILGRIMAGE       -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-divider"></div>
+
+<section class="package pkg-2">
+  <div class="pkg-visual">
+    <div class="pkg-visual-bg"></div>
+    <div class="pkg-number">02</div>
+    <div class="pkg-icon">
+      <div class="pkg-tag">Spiritual Luxury Collection</div>
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Temple gopuram outline -->
+        <circle cx="60" cy="60" r="58" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <!-- Main spire -->
+        <path d="M60 20 L50 40 L47 60 L50 80 L70 80 L73 60 L70 40 Z" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+        <!-- Tiers -->
+        <line x1="50" y1="40" x2="70" y2="40" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
+        <line x1="48" y1="50" x2="72" y2="50" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
+        <line x1="47" y1="60" x2="73" y2="60" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
+        <line x1="48" y1="70" x2="72" y2="70" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
+        <!-- Top finial -->
+        <circle cx="60" cy="18" r="3" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.2)"/>
+        <line x1="60" y1="15" x2="60" y2="10" stroke="#C9A84C" stroke-width="1"/>
+        <circle cx="60" cy="9" r="1.5" fill="#C9A84C" opacity="0.6"/>
+        <!-- Base platform -->
+        <rect x="38" y="80" width="44" height="6" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <rect x="30" y="86" width="60" height="4" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.5"/>
+        <!-- Steps -->
+        <path d="M34 90 L86 90 L90 96 L30 96 Z" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.4"/>
+        <!-- Decorative dots on spire -->
+        <circle cx="60" cy="30" r="1.5" fill="#C9A84C" opacity="0.4"/>
+        <circle cx="56" cy="55" r="1" fill="#C9A84C" opacity="0.3"/>
+        <circle cx="64" cy="55" r="1" fill="#C9A84C" opacity="0.3"/>
+        <!-- Lamp flames -->
+        <ellipse cx="38" cy="78" rx="3" ry="5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.1)" opacity="0.6"/>
+        <ellipse cx="82" cy="78" rx="3" ry="5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.1)" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="pkg-content">
+    <div class="reveal">
+      <p class="pkg-eyebrow">Package 02 &nbsp;·&nbsp; Spiritual Luxury</p>
+      <h2 class="pkg-title">The Divine South<br><em>Pilgrimage Series</em></h2>
+      <p class="pkg-subtitle">Spiritual journeys, executed with dignity and comfort</p>
+      <div class="pkg-rule"></div>
+    </div>
+
+    <div class="pkg-meta reveal reveal-delay-1">
+      <div class="meta-item">
+        <span class="meta-label">Vehicles</span>
+        <span class="meta-value">Mercedes · Crysta · Urbania</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Guests</span>
+        <span class="meta-value">2–12 Guests</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Ideal For</span>
+        <span class="meta-value">Families · Parents · Groups</span>
+      </div>
+    </div>
+
+    <p class="pkg-description reveal reveal-delay-2">
+      Devotion deserves more than an overcrowded bus and a rushed darshan. The Divine South series delivers the sacred with the care it merits — structured itineraries, elder-friendly pacing, and priority darshan assistance where available, so the journey itself becomes part of the offering.
+    </p>
+
+    <div class="reveal reveal-delay-2">
+      <p class="flow-label">Core Routes</p>
+      <div class="routes-grid">
+        <div class="route-card hero">
+          <p class="route-badge">✦ &nbsp; Flagship Route</p>
+          <p class="route-name">Tirupati VIP Darshan</p>
+          <p class="route-desc">The most revered shrine in the world — experienced with dignity. Priority darshan assistance available subject to temple guidelines. Structured departure, time-buffered planning, elder-friendly.</p>
+        </div>
+        <div class="route-card">
+          <p class="route-badge">Supporting Route</p>
+          <p class="route-name">Kukke Subramanya</p>
+          <p class="route-desc">A sacred Ghats journey through mist and devotion. Private vehicle comfort through winding forest roads.</p>
+        </div>
+        <div class="route-card">
+          <p class="route-badge">Supporting Route</p>
+          <p class="route-name">Dharmasthala</p>
+          <p class="route-desc">A place of dharmic confluence — Jain and Hindu traditions in one sacred complex. Unhurried and deeply intentional.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pkg-positioning reveal reveal-delay-3">
+      <p class="positioning-label">The Key Differentiator</p>
+      <p class="positioning-text">"This is not temple tourism. It is a curated spiritual journey — paced for elders, planned for peace of mind, and delivered in the comfort that devotion deserves."</p>
+    </div>
+
+    <div class="pkg-attributes reveal reveal-delay-4">
+      <span class="attr-pill">Elder-Friendly</span>
+      <span class="attr-pill">Structured</span>
+      <span class="attr-pill">Dignified</span>
+      <span class="attr-pill">Time-Buffered</span>
+      <span class="attr-pill">All Vehicles</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PACKAGE 3 — OLD BANGALORE HERITAGE        -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-divider"></div>
+
+<section class="package pkg-3">
+  <div class="pkg-visual">
+    <div class="pkg-visual-bg"></div>
+    <div class="pkg-number">03</div>
+    <div class="pkg-icon">
+      <div class="pkg-tag">Cultural Luxury Day Experience</div>
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Arch / heritage doorway -->
+        <circle cx="60" cy="60" r="58" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <!-- Main archway -->
+        <path d="M35 95 L35 55 Q35 30 60 30 Q85 30 85 55 L85 95" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Inner arch -->
+        <path d="M42 95 L42 58 Q42 38 60 38 Q78 38 78 58 L78 95" stroke="#C9A84C" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <!-- Door frame base -->
+        <line x1="30" y1="95" x2="90" y2="95" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Decorative keystone -->
+        <path d="M55 30 Q60 24 65 30" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <circle cx="60" cy="23" r="2.5" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.2)"/>
+        <!-- Window detail in arch -->
+        <path d="M50 70 Q50 58 60 58 Q70 58 70 70 L70 85 L50 85 Z" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.05)" opacity="0.7"/>
+        <!-- Doorknob -->
+        <circle cx="65" cy="78" r="2" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.2)"/>
+        <!-- Columns -->
+        <line x1="35" y1="55" x2="35" y2="95" stroke="#C9A84C" stroke-width="2.5" opacity="0.2"/>
+        <line x1="85" y1="55" x2="85" y2="95" stroke="#C9A84C" stroke-width="2.5" opacity="0.2"/>
+        <!-- Capital details -->
+        <line x1="28" y1="55" x2="42" y2="55" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <line x1="78" y1="55" x2="92" y2="55" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <!-- Decorative top row -->
+        <line x1="25" y1="46" x2="95" y2="46" stroke="#C9A84C" stroke-width="0.6" opacity="0.25"/>
+        <!-- Corner ornaments -->
+        <circle cx="25" cy="46" r="1.5" fill="#C9A84C" opacity="0.3"/>
+        <circle cx="95" cy="46" r="1.5" fill="#C9A84C" opacity="0.3"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="pkg-content">
+    <div class="reveal">
+      <p class="pkg-eyebrow">Package 03 &nbsp;·&nbsp; 5–6 Hour Immersion</p>
+      <h2 class="pkg-title">The Old Bangalore<br><em>Heritage Experience</em></h2>
+      <p class="pkg-subtitle">Rediscover Bangalore the way it was meant to be experienced</p>
+      <div class="pkg-rule"></div>
+    </div>
+
+    <div class="pkg-meta reveal reveal-delay-1">
+      <div class="meta-item">
+        <span class="meta-label">Vehicles</span>
+        <span class="meta-value">Mercedes · Crysta · Urbania</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Duration</span>
+        <span class="meta-value">5–6 Hours</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Ideal For</span>
+        <span class="meta-value">NRIs · Parents · Cultural Guests</span>
+      </div>
+    </div>
+
+    <p class="pkg-description reveal reveal-delay-2">
+      The Bangalore that made this city extraordinary — its granite temples, its centuries-old bazaars, its layered Dravidian and colonial textures — exists beneath the modern surface, waiting. This is not a city tour. It is a curated heritage immersion into a Bangalore that most residents have never truly seen.
+    </p>
+
+    <div class="pkg-flow reveal reveal-delay-2">
+      <p class="flow-label">Curated Route</p>
+      <div class="flow-items">
+        <div class="flow-item"><div class="flow-dot"></div><span>Bull Temple — Nandi in living stone, 16th-century Kempe Gowda legacy</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Gavi Gangadhareshwara — A cave temple of astronomical precision</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Dodda Ganapathi — One of India's largest Ganesha sculptures, quietly extraordinary</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Gandhi Bazaar — A curated heritage walk through Basavanagudi's living history</span></div>
+        <div class="flow-item"><div class="flow-dot"></div><span>Traditional premium lunch — a curated finale at a heritage South Indian restaurant</span></div>
+      </div>
+    </div>
+
+    <div class="pkg-positioning reveal reveal-delay-3">
+      <p class="positioning-label">What This Must Feel Like</p>
+      <p class="positioning-text">"Not three temples and lunch. A slow, meaningful journey through the layers of a city that has been accumulating stories for 500 years — guided by someone who knows where they are buried."</p>
+    </div>
+
+    <div class="pkg-attributes reveal reveal-delay-4">
+      <span class="attr-pill">Cultural Depth</span>
+      <span class="attr-pill">Slowly Paced</span>
+      <span class="attr-pill">Meaningful</span>
+      <span class="attr-pill">NRI-Ready</span>
+      <span class="attr-pill">Storytelling</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CLOSING -->
+<section class="closing">
+  <p class="closing-ornament">✦ &nbsp; Golden Holidays &nbsp; ✦</p>
+  <h2>Every journey begins<br>with a single call.</h2>
+  <p class="closing-body">
+    These three experiences are not products. They are promises — of care, of curation, and of the conviction that travel, done properly, changes something in you. We would be honoured to design yours.
+  </p>
+  <a href="#" class="closing-cta"><span>Enquire Now</span></a>
+</section>
+
+<script>
+  // Intersection Observer for scroll reveals
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
